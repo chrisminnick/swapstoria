@@ -43,7 +43,7 @@ export default class Thing extends Component {
                     </button>
                 ) : ''}
                 <span className="text">
-                    <strong>{this.props.thing.username}</strong>: {this.props.thing.text}
+                    <strong>{this.props.thing.username}</strong>: {this.props.thing.quantity} {this.props.thing.text}
                 </span>
             </li>
         );
