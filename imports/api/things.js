@@ -19,16 +19,16 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-    'things.insert'(text) {
+    'things.insert'(text,quantity) {
         check(text, String);
-
+        check(quantity, Number);
         // Make sure the user is logged in before inserting a thing
         if (! this.userId) {
             throw new Meteor.Error('not-authorized');
         }
 
         Things.insert({
-            text,
+            text,quantity,
             createdAt: new Date(),
             owner: this.userId,
             username: Meteor.users.findOne(this.userId).username,

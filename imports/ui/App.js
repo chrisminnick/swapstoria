@@ -23,11 +23,12 @@ class App extends Component {
 
         // Find the text field via the React ref
         const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
-
-        Meteor.call('things.insert', text);
+        const quantity = parseInt(ReactDOM.findDOMNode(this.refs.quantity).value);
+        Meteor.call('things.insert', text, quantity);
 
         // Clear form
         ReactDOM.findDOMNode(this.refs.textInput).value = '';
+        ReactDOM.findDOMNode(this.refs.quantity).value = '';
     }
     toggleHideCompleted() {
         this.setState({
@@ -74,8 +75,14 @@ class App extends Component {
                             <input
                                 type="text"
                                 ref="textInput"
-                                placeholder="Type to add new things"
+                                placeholder="Type to add a new thing"
                             />
+                            <input
+                                type="number"
+                                ref="quantity"
+                                placeholder="How Many"
+                            />
+                            <input type="submit" value="Swap It!" class="swap-button"/>
                         </form> : ''
                     }
                 </header>

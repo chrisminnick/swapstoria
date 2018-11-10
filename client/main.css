@@ -48,7 +48,7 @@ form {
   position: relative;
 }
 
-.new-thing input {
+/*.new-thing input[type=text] {
   box-sizing: border-box;
   padding: 10px 0;
   background: transparent;
@@ -56,7 +56,7 @@ form {
   width: 100%;
   padding-right: 80px;
   font-size: 1em;
-}
+}*/
 
 .new-thing input:focus{
   outline: 0;
