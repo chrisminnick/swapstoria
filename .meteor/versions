@@ -4,6 +4,9 @@ accounts-oauth@1.1.16
 accounts-password@1.5.1
 accounts-ui@1.3.1
 accounts-ui-unstyled@1.4.1
+akryum:vue-component@0.14.3
+akryum:vue-component-dev-client@0.4.5
+akryum:vue-component-dev-server@0.1.3
 allow-deny@1.1.0
 autoupdate@1.5.0
 babel-compiler@7.2.1

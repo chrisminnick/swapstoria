@@ -1,10 +1,12 @@
 import React from 'react';
+import Vue from 'vue'
+
 import { Meteor } from 'meteor/meteor';
-import { render } from 'react-dom';
 
 import '../imports/startup/accounts-config.js';
-import App from '../imports/ui/App.js';
-
+import App from '../imports/ui/App.vue';
 Meteor.startup(() => {
-    render(<App />, document.getElementById('render-target'));
+    new Vue({
+        render: function (h) { return h(App) },
+    }).$mount('#render-target')
 });
