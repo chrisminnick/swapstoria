@@ -32,9 +32,15 @@ export default {
       }
   },
   data: function(){
-      let things = Things.find({}, { sort: { createdAt: -1 } }).fetch();
+      let things = this.getThings(Things);
       console.log(things);
       return {things};
+  },
+  meteor: {
+      getThings (Things) {
+          var t = Things.find({}, { sort: { createdAt: -1 } }).fetch();
+          return t;
+      }
   }
 }
 </script>
