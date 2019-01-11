@@ -1,8 +1,7 @@
 
 <template>
   <div id="app">
-    {{insertSomething}}
-    {{getTheThings}}
+
     <Thing v-for="thing in getTheThings" v-bind:label="thing.text"/>
 
   </div>
@@ -41,7 +40,7 @@ export default {
           const quantity = 5;
 
           Meteor.call('things.insert', text, quantity);
-          console.log('inserting data');
+          //console.log('inserting data');
           return text;
       }
   },
