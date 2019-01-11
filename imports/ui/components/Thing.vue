@@ -9,6 +9,9 @@ export default {
   name: 'Thing',
   props: {
     label: String
+  },
+  computedProperties: {
+
   }
 }
 </script>
