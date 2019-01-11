@@ -1,9 +1,11 @@
 
 <template>
   <div id="app">
+    <div v-for="thing in getTheThings">
+    <Thing :label="thing.text"/>
 
-    <Thing v-for="thing in getTheThings" v-bind:label="thing.text"/>
-
+    <Thing label="some test text"/>
+    </div>
   </div>
 </template>
 
@@ -54,7 +56,11 @@ export default {
     }
 
 
-  }
+  },
+    beforeMount: function() {
+        this.insertSomething();
+
+    }
 }
 </script>
 
