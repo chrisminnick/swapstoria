@@ -8,13 +8,8 @@ export const Things = new Mongo.Collection('things');
 if (Meteor.isServer) {
     // This code only runs on the server
     // Only publish things that are public or belong to the current user
-    Meteor.publish('things', function thingsPublication() {
-        return Things.find({
-            $or: [
-                { private: { $ne: true } },
-                { owner: this.userId },
-            ],
-        });
+    Meteor.publish('things', function () {
+        return Things.find({});
     });
 }
 
@@ -24,14 +19,14 @@ Meteor.methods({
         check(quantity, Number);
         // Make sure the user is logged in before inserting a thing
         if (! this.userId) {
-            throw new Meteor.Error('not-authorized');
+            //throw new Meteor.Error('not-authorized');
         }
 
         Things.insert({
             text,quantity,
             createdAt: new Date(),
-            owner: this.userId,
-            username: Meteor.users.findOne(this.userId).username,
+            //owner: this.userId,
+            //username: Meteor.users.findOne(this.userId).username,
         });
     },
     'things.remove'(thingId) {

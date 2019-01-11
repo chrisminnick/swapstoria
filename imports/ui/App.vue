@@ -1,14 +1,17 @@
 
 <template>
   <div id="app">
-    <Thing v-for="thing in things" v-bind:label="thing.text"/>
+    {{insertSomething}}
+    {{getTheThings}}
+    <Thing v-for="thing in getTheThings" v-bind:label="thing.text"/>
+
   </div>
 </template>
 
 <script>
 import Thing from './components/Thing.vue';
 import { Things } from '../api/things.js';
-//const Things = [{text:"this is a thing"}];
+import { Meteor } from 'meteor/meteor';
 
 export default {
   name: 'app',
@@ -16,6 +19,7 @@ export default {
     Thing
   },
   computed: {
+
       filterThings: function (things) {
 
           // remove completed items from the array if hideCompleted is checked.
@@ -31,16 +35,26 @@ export default {
           });
       }
   },
-  data: function(){
-      let things = this.getThings(Things);
-      console.log(things);
-      return {things};
+  methods: {
+      insertSomething: function() {
+          const text = "test text";
+          const quantity = 5;
+
+          Meteor.call('things.insert', text, quantity);
+          console.log('inserting data');
+          return text;
+      }
   },
   meteor: {
-      getThings (Things) {
-          var t = Things.find({}, { sort: { createdAt: -1 } }).fetch();
-          return t;
-      }
+    $subscribe: {
+        'Things': []
+    },
+    getTheThings() {
+        let things = Things.find({}, { sort: { createdAt: -1 } }).fetch();
+        return things;
+    }
+
+
   }
 }
 </script>
