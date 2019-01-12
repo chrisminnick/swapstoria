@@ -1,64 +1,10 @@
-import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
-import { check } from 'meteor/check';
-
-export const Things = new Mongo.Collection('things');
-
-
-if (Meteor.isServer) {
-    // This code only runs on the server
-    // Only publish things that are public or belong to the current user
-    Meteor.publish('things', function () {
-        return Things.find({});
-    });
-}
-
-Meteor.methods({
-    'things.insert'(text,quantity) {
-        check(text, String);
-        check(quantity, Number);
-        // Make sure the user is logged in before inserting a thing
-        if (! this.userId) {
-            //throw new Meteor.Error('not-authorized');
-        }
-
-        Things.insert({
-            text,quantity,
-            createdAt: new Date(),
-            //owner: this.userId,
-            //username: Meteor.users.findOne(this.userId).username,
-        });
-    },
-    'things.remove'(thingId) {
-        check(thingId, String);
-        const thing = Things.findOne(thingId);
-        if (thing.private && thing.owner !== this.userId) {
-            // If the thing is private, make sure only the owner can delete it
-            throw new Meteor.Error('not-authorized');
-        }
-        Things.remove(thingId);
-    },
-    'things.setChecked'(thingId, setChecked) {
-        check(thingId, String);
-        check(setChecked, Boolean);
-        const thing = Things.findOne(thingId);
-        if (thing.private && thing.owner !== this.userId) {
-            // If the thing is private, make sure only the owner can check it off
-            throw new Meteor.Error('not-authorized');
-        }
-        Things.update(thingId, { $set: { checked: setChecked } });
-    },
-    'things.setPrivate'(thingId, setToPrivate) {
-        check(thingId, String);
-        check(setToPrivate, Boolean);
-
-        const thing = Things.findOne(thingId);
-
-        // Make sure only the thing owner can make a thing private
-        if (thing.owner !== this.userId) {
-            throw new Meteor.Error('not-authorized');
-        }
-
-        Things.update(thingId, { $set: { private: setToPrivate } });
-    },
-});
+export const Things = {things: [
+    {title: 'cheese', imgUrl: 'picture1.jpeg', id: '1', quantity: 0},
+    {title: 'pizza', imgUrl: 'picture2.jpeg', id: '2', quantity: 0},
+    {title: 'beer', imgUrl: 'picture3.jpeg', id: '3', quantity: 0},
+    {title: 'tacos', imgUrl: 'picture4.jpeg', id: '4', quantity: 0},
+    {title: 'goats', imgUrl: 'picture5.jpeg', id: '5', quantity: 0},
+    {title: 'boots', imgUrl: 'picture6.jpeg', id: '6', quantity: 0},
+    {title: 'sheep', imgUrl: 'picture7.jpeg', id: '7', quantity: 0},
+    {title: 'cows', imgUrl: 'picture8.jpeg', id: '8', quantity: 0}
+]};
