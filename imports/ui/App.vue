@@ -1,7 +1,8 @@
 
 <template>
   <div id="app">
-    <div v-for="thing in getTheThings">
+    <div v-if="!$subReady.Things">Loading...</div>
+    <div v-for="thing in getThings">
     <Thing :label="thing.text"/>
 
     <Thing label="some test text"/>
@@ -42,7 +43,7 @@ export default {
           const quantity = 5;
 
           Meteor.call('things.insert', text, quantity);
-          //console.log('inserting data');
+          console.log('inserting data');
           return text;
       }
   },
@@ -50,15 +51,17 @@ export default {
     $subscribe: {
         'Things': []
     },
-    getTheThings() {
-        let things = Things.find({}, { sort: { createdAt: -1 } }).fetch();
-        return things;
-    }
-
+    getThings () {
+          // Here you can use Meteor reactive sources
+          // like cursors or reactive vars
+          // as you would in a Blaze template helper
+        Things.find({}, { sort: { createdAt: -1 } }).fetch();
+      }
 
   },
-    beforeMount: function() {
+    mounted: function() {
         this.insertSomething();
+        console.log(this.$subReady.Things)
 
     }
 }
