@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <Thing v-for="thing in things" :label="thing.title"/>
+    <Thing v-for="thing in things" :label="thing.title" :key="thing.id"/>
 
   </div>
 </template>
