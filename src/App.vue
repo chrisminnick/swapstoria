@@ -80,7 +80,7 @@
         return {
             things:thingStorage.fetch(),
             newThing:'',
-            newThingQuan:0
+            newThingQuan:'' // 0 value hides placeholder
         };
     },
     methods: {
@@ -91,7 +91,7 @@
             if (!value) {
                 return
             }
-            var quantity = parseInt(this.newThingQuan);
+            var quantity = parseInt(this.newThingQuan) || 0; // converts empty string to zero
             let id = thingStorage.generateID();
             this.things.push({
                 id: id,
@@ -101,7 +101,7 @@
             console.log("adding: " + id + " " + quantity + " " + value);
 
             this.newThing = '';
-            this.newThingQuan = 0;
+            this.newThingQuan = '';
         },
         removeThing: function() {}
     },
