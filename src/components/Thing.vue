@@ -1,13 +1,17 @@
 <template>
-  <div>
-    <h1>Here's something: {{ label }}</h1>
-  </div>
+
+    <tr>
+      <td>{{ quantity }}</td>
+      <td>{{ label }}</td>
+    </tr>
+
 </template>
 
 <script>
 export default {
   name: 'Thing',
   props: {
+    quantity: Number,
     label: String
   },
   computedProperties: {
@@ -18,7 +22,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1 {
-  margin: 40px 0 0;
-}
+
+
 </style>

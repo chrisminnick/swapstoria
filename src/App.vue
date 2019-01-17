@@ -4,7 +4,7 @@
       <input type="text"
              placeholder="Type to add a new thing"
              id="thingToAdd"
-             v-model="newThing"/>
+             v-model="newThing" />
       <input
           type="number"
           ref="quantity"
@@ -13,9 +13,11 @@
       />
       <input type="submit" v-on:click="addThing" value="Swap It!" class="swap-button"/>
     </form>
-
-    <Thing v-for="thing in things" :label="thing.title" :key="thing.id"/>
-
+    <table class="table table-striped">
+      <tbody>
+        <Thing v-for="thing in things.slice().reverse()" :quantity="thing.quantity" :label="thing.title" :key="thing.id"/>
+      </tbody>
+    </table>
   </div>
 
 </template>
@@ -26,14 +28,12 @@
 
     var thingStorage = {
         fetch: function () {
-            var things = Things.things;
-            things.forEach(function (thing, index) {
-                thing.id = index
-            });
-            thingStorage.uid = things.length;
-            return things
+            let things = Things.things; //replace with fetch?
+
+            return things;
         },
-        generateID: function () {
+        generateID: function () { // ok for now until we have a database
+
             // Math.random should be unique because of its seeding algorithm.
             // Convert it to base 36 (numbers + letters), and grab the first 9 characters
             // after the decimal.
@@ -87,7 +87,7 @@
             let id = thingStorage.generateID();
             this.things.push({
                 id: id,
-                quan: this.newThingQuan,
+                quantity: quantity,
                 title: value
             });
             console.log("adding: " + id + " " + quantity + " " + value);
@@ -111,5 +111,11 @@
     text-align: center;
     color: #2c3e50;
     margin-top: 60px;
+  }
+  ul {
+    list-style-position: inside;
+    text-align: left;
+    width: 300px;
+    margin: 0 auto;
   }
 </style>
