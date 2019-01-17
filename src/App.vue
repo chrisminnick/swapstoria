@@ -1,17 +1,25 @@
 <template>
   <div id="app">
     <form>
-      <input type="text"
-             placeholder="Type to add a new thing"
-             id="thingToAdd"
-             v-model="newThing" />
+      <input
+          type="text"
+          placeholder="Type to add a new thing"
+          id="thingToAdd"
+          v-model="newThing"
+      />
       <input
           type="number"
           ref="quantity"
           placeholder="How Many"
+          min="0"
           v-model="newThingQuan"
       />
-      <input type="submit" v-on:click="addThing" value="Swap It!" class="swap-button"/>
+      <input
+          type="submit"
+          value="Swap It!"
+          class="swap-button"
+          v-on:click="addThing"
+      />
     </form>
     <table class="table table-striped">
       <tbody>
