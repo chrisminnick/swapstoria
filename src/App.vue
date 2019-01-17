@@ -86,12 +86,20 @@
     methods: {
         addThing: function (event) {
             event.preventDefault();
-
+            
+            let invalid = false;
             var value = this.newThing && this.newThing.trim();
             if (!value) {
-                return
+                this.newThing = '';
+                invalid = true;
             }
             var quantity = parseInt(this.newThingQuan) || 0; // converts empty string to zero
+            if (quantity < 0) {
+                this.newThingQuan = '';
+                invalid = true;
+            }
+            if (invalid) return;
+
             let id = thingStorage.generateID();
             this.things.push({
                 id: id,
