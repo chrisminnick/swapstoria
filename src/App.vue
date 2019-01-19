@@ -1,17 +1,25 @@
 <template>
   <div id="app">
     <form>
-      <input type="text"
-             placeholder="Type to add a new thing"
-             id="thingToAdd"
-             v-model="newThing" />
+      <input
+          type="text"
+          placeholder="Type to add a new thing"
+          id="thingToAdd"
+          v-model="newThing"
+      />
       <input
           type="number"
           ref="quantity"
           placeholder="How Many"
+          min="0"
           v-model="newThingQuan"
       />
-      <input type="submit" v-on:click="addThing" value="Swap It!" class="swap-button"/>
+      <input
+          type="submit"
+          value="Swap It!"
+          class="swap-button"
+          v-on:click="addThing"
+      />
     </form>
     <table class="table table-striped">
       <tbody>
@@ -72,18 +80,26 @@
         return {
             things:thingStorage.fetch(),
             newThing:'',
-            newThingQuan:0
+            newThingQuan:'' // 0 value hides placeholder
         };
     },
     methods: {
         addThing: function (event) {
             event.preventDefault();
-
+            
+            let invalid = false;
             var value = this.newThing && this.newThing.trim();
             if (!value) {
-                return
+                this.newThing = '';
+                invalid = true;
             }
-            var quantity = parseInt(this.newThingQuan);
+            var quantity = parseInt(this.newThingQuan) || 0; // converts empty string to zero
+            if (quantity < 0) {
+                this.newThingQuan = '';
+                invalid = true;
+            }
+            if (invalid) return;
+
             let id = thingStorage.generateID();
             this.things.push({
                 id: id,
@@ -93,7 +109,7 @@
             console.log("adding: " + id + " " + quantity + " " + value);
 
             this.newThing = '';
-            this.newThingQuan = 0;
+            this.newThingQuan = '';
         },
         removeThing: function() {}
     },
